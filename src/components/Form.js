@@ -20,13 +20,13 @@ class Form extends React.Component {
 
     return (
       <>
-        <label htmlFor="name">
+        <label htmlFor="nome">
           Nome:
           <input
             data-testid="name-input"
             type="text"
-            name="name"
-            id="name"
+            name="nome"
+            id="nome"
             value={ cardName }
             onChange={ onInputChange }
           />
@@ -42,9 +42,7 @@ class Form extends React.Component {
             rows="10"
             value={ cardDescription }
             onChange={ onInputChange }
-          >
-            a
-          </textarea>
+          />
         </label>
 
         <label htmlFor="attr1">
