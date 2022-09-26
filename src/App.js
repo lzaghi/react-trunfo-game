@@ -9,14 +9,36 @@ class App extends React.Component {
     this.state = {
       nome: '',
       description: '',
-      attr1: '',
-      attr2: '',
-      attr3: '',
+      attr1: '0',
+      attr2: '0',
+      attr3: '0',
       image: '',
       rare: 'normal',
       trunfo: '',
     };
   }
+
+  isSaveButtonDisabled = () => {
+    const { nome, description, image, attr1, attr2, attr3 } = this.state;
+
+    const validName = nome.length !== 0;
+    const validDesc = description.length !== 0;
+    const validImage = image.length !== 0;
+
+    const attrMax = 90;
+    const validAttr1 = attr1 >= 0 && attr1 <= attrMax;
+    const validAttr2 = attr2 >= 0 && attr2 <= attrMax;
+    const validAttr3 = attr3 >= 0 && attr3 <= attrMax;
+
+    const sumMax = 210;
+    const sum = Number(attr1) + Number(attr2) + Number(attr3);
+    const validSum = sum <= sumMax;
+
+    const filledForm = validName
+      && validDesc && validImage && validAttr1 && validAttr2 && validAttr3 && validSum;
+
+    return !filledForm;
+  };
 
   onInputChange = ({ target }) => {
     const { name } = target;
@@ -51,6 +73,7 @@ class App extends React.Component {
           cardRare={ rare }
           cardTrunfo={ trunfo }
           onInputChange={ this.onInputChange }
+          isSaveButtonDisabled={ this.isSaveButtonDisabled() }
         />
 
         <Card
