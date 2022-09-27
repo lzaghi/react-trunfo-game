@@ -15,13 +15,24 @@ class App extends React.Component {
       image: '',
       rare: 'normal',
       trunfo: false,
+      hasTrunfo: false,
       deck: [],
     };
   }
 
+  validaTrunfo = (trunfo) => {
+    if (trunfo) {
+      this.setState({
+        trunfo: false,
+        hasTrunfo: true,
+      });
+    }
+  };
+
   onSaveButtonClick = () => {
-    const { nome, description, image, attr1, attr2, attr3, rare } = this.state;
+    const { nome, description, image, attr1, attr2, attr3, rare, trunfo } = this.state;
     const newCard = { nome, description, image, attr1, attr2, attr3, rare };
+    this.validaTrunfo(trunfo);
     this.setState((prevState) => ({
       nome: '',
       description: '',
@@ -74,6 +85,7 @@ class App extends React.Component {
       image,
       rare,
       trunfo,
+      hasTrunfo,
     } = this.state;
     return (
       <div>
@@ -88,6 +100,7 @@ class App extends React.Component {
           cardImage={ image }
           cardRare={ rare }
           cardTrunfo={ trunfo }
+          hasTrunfo={ hasTrunfo }
           onInputChange={ this.onInputChange }
           isSaveButtonDisabled={ this.isSaveButtonDisabled() }
           onSaveButtonClick={ this.onSaveButtonClick }
