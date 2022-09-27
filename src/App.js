@@ -86,6 +86,7 @@ class App extends React.Component {
       rare,
       trunfo,
       hasTrunfo,
+      deck,
     } = this.state;
     return (
       <div>
@@ -117,6 +118,21 @@ class App extends React.Component {
           cardTrunfo={ trunfo }
           onInputChange={ this.onInputChange }
         />
+
+        {deck.map((card, index) => (
+          <Card
+            key={ index }
+            cardName={ card.nome }
+            cardDescription={ card.description }
+            cardAttr1={ card.attr1 }
+            cardAttr2={ card.attr2 }
+            cardAttr3={ card.attr3 }
+            cardImage={ card.image }
+            cardRare={ card.rare }
+            cardTrunfo={ false }
+          />
+        ))}
+        ;
       </div>
     );
   }
