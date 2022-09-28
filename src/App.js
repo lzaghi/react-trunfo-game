@@ -18,6 +18,7 @@ class App extends React.Component {
       hasTrunfo: false,
       deck: [],
       deckCard: true,
+      filterName: '',
     };
   }
 
@@ -86,13 +87,20 @@ class App extends React.Component {
     });
   };
 
-  excluiCard = (event) => {
-    if (event.target.parentNode.firstChild.innerHTML === 'Super Trunfo') {
+  excluiCard = ({ target }) => {
+    const { deck } = this.state;
+    if (target.parentNode.firstChild.nextSibling.innerHTML === 'Super Trunfo') {
       this.setState({
         hasTrunfo: false,
       });
     }
-    event.target.parentNode.remove();
+
+    const newDeck = deck
+      .filter((card) => card.nome !== target.parentNode.firstChild.innerHTML);
+
+    this.setState({
+      deck: newDeck,
+    });
   };
 
   render() {
@@ -107,6 +115,7 @@ class App extends React.Component {
       trunfo,
       hasTrunfo,
       deck,
+      filterName,
     } = this.state;
     return (
       <div>
@@ -139,21 +148,23 @@ class App extends React.Component {
           onInputChange={ this.onInputChange }
         />
 
-        {deck.map((card, index) => (
-          <Card
-            key={ index }
-            cardName={ card.nome }
-            cardDescription={ card.description }
-            cardAttr1={ card.attr1 }
-            cardAttr2={ card.attr2 }
-            cardAttr3={ card.attr3 }
-            cardImage={ card.image }
-            cardRare={ card.rare }
-            cardTrunfo={ card.trunfo }
-            deckCard={ card.deckCard }
-            excluiCard={ this.excluiCard }
-          />
-        ))}
+        {deck
+          .filter((card) => card.nome.includes(filterName))
+          .map((card, index) => (
+            <Card
+              key={ index }
+              cardName={ card.nome }
+              cardDescription={ card.description }
+              cardAttr1={ card.attr1 }
+              cardAttr2={ card.attr2 }
+              cardAttr3={ card.attr3 }
+              cardImage={ card.image }
+              cardRare={ card.rare }
+              cardTrunfo={ card.trunfo }
+              deckCard={ card.deckCard }
+              excluiCard={ this.excluiCard }
+            />
+          ))}
       </div>
     );
   }

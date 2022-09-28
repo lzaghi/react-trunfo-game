@@ -137,6 +137,17 @@ class Form extends React.Component {
         >
           Salvar
         </button>
+
+        <label htmlFor="filterName">
+          Filtro por nome
+          <input
+            data-testid="name-filter"
+            type="text"
+            name="filterName"
+            id="filterName"
+            onChange={ onInputChange }
+          />
+        </label>
       </>
     );
   }
