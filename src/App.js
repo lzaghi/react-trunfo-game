@@ -105,9 +105,19 @@ class App extends React.Component {
     });
   };
 
-  // handleFilterTrunfo = () => {
-  //   console.log('aquir');
-  // };
+  handleFilter = () => {
+    const { deck, filterName, filterRare, filterTrunfo } = this.state;
+
+    let deckFiltrado = deck
+      .filter((card) => card.nome.includes(filterName))
+      .filter((card) => card.rare.startsWith(filterRare) || filterRare === 'todas');
+
+    if (filterTrunfo) {
+      deckFiltrado = deckFiltrado.filter((card) => card.trunfo === filterTrunfo);
+    }
+
+    return deckFiltrado;
+  };
 
   render() {
     const {
@@ -120,9 +130,6 @@ class App extends React.Component {
       rare,
       trunfo,
       hasTrunfo,
-      deck,
-      filterName,
-      filterRare,
       filterTrunfo,
     } = this.state;
 
@@ -158,11 +165,7 @@ class App extends React.Component {
           onInputChange={ this.onInputChange }
         />
 
-        {/* { filterTrunfo && (this.handleFilterTrunfo())} */}
-        { deck
-          .filter((card) => card.trunfo === filterTrunfo)
-          .filter((card) => card.nome.includes(filterName))
-          .filter((card) => card.rare.startsWith(filterRare) || filterRare === 'todas')
+        { this.handleFilter()
           .map((card, index) => (
             <Card
               key={ index }
