@@ -19,6 +19,7 @@ class App extends React.Component {
       deck: [],
       deckCard: true,
       filterName: '',
+      filterRare: 'todas',
     };
   }
 
@@ -116,6 +117,7 @@ class App extends React.Component {
       hasTrunfo,
       deck,
       filterName,
+      filterRare,
     } = this.state;
     return (
       <div>
@@ -150,6 +152,7 @@ class App extends React.Component {
 
         {deck
           .filter((card) => card.nome.includes(filterName))
+          .filter((card) => card.rare.startsWith(filterRare) || filterRare === 'todas')
           .map((card, index) => (
             <Card
               key={ index }
