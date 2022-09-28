@@ -20,6 +20,7 @@ class App extends React.Component {
       deckCard: true,
       filterName: '',
       filterRare: 'todas',
+      filterTrunfo: false,
     };
   }
 
@@ -104,6 +105,10 @@ class App extends React.Component {
     });
   };
 
+  // handleFilterTrunfo = () => {
+  //   console.log('aquir');
+  // };
+
   render() {
     const {
       nome,
@@ -118,7 +123,9 @@ class App extends React.Component {
       deck,
       filterName,
       filterRare,
+      filterTrunfo,
     } = this.state;
+
     return (
       <div>
         <h1>Tryunfo c:</h1>
@@ -136,6 +143,7 @@ class App extends React.Component {
           onInputChange={ this.onInputChange }
           isSaveButtonDisabled={ this.isSaveButtonDisabled() }
           onSaveButtonClick={ this.onSaveButtonClick }
+          filterTrunfo={ filterTrunfo }
         />
 
         <Card
@@ -150,7 +158,9 @@ class App extends React.Component {
           onInputChange={ this.onInputChange }
         />
 
-        {deck
+        {/* { filterTrunfo && (this.handleFilterTrunfo())} */}
+        { deck
+          .filter((card) => card.trunfo === filterTrunfo)
           .filter((card) => card.nome.includes(filterName))
           .filter((card) => card.rare.startsWith(filterRare) || filterRare === 'todas')
           .map((card, index) => (
@@ -168,6 +178,7 @@ class App extends React.Component {
               excluiCard={ this.excluiCard }
             />
           ))}
+
       </div>
     );
   }
